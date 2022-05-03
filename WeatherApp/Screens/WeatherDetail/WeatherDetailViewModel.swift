@@ -11,7 +11,8 @@ import Foundation
 protocol WeatherDetailViewModelProtocol {
     var consolerWeather: [ConsoleWeather] { get set}
     var detail: Detail? { get set }
-    var service: WeatherDetailServiceProtocol { get set }
+    var detailService: WeatherDetailServiceProtocol { get set }
+    var consoleService: ConsoleWeatherServiceProtocol { get set }
     var consoleOutPut: WeatherDetailOutput? { get}
     func getConsoleWeather(cityId: Int)
     func getDetailWeather(cityId: Int)
@@ -31,18 +32,20 @@ class WeatherDetailViewModel: WeatherDetailViewModelProtocol {
     
     var detail: Detail?
     var consolerWeather: [ConsoleWeather] = []
-    var service: WeatherDetailServiceProtocol
+    var detailService: WeatherDetailServiceProtocol
+    var consoleService: ConsoleWeatherServiceProtocol
     var consoleOutPut: WeatherDetailOutput?
     
     private var isLoading = false
     
-    init(service: WeatherDetailServiceProtocol = WeatherDetailService()) {
-        self.service = service
+    init(detailService: WeatherDetailServiceProtocol = WeatherDetailService(), consoleService: ConsoleWeatherServiceProtocol = ConsoleWeatherService()) {
+        self.detailService = detailService
+        self.consoleService = consoleService
     }
     
     func getConsoleWeather(cityId: Int) {
         changeLoading()
-        service.fetchConsoleWeather(with: cityId) { [weak self] (result) in
+        consoleService.fetchConsoleWeather(with: cityId) { [weak self] (result) in
             guard let self = self else { return }
             switch result {
             case .success(let consolerWeather):
@@ -57,7 +60,7 @@ class WeatherDetailViewModel: WeatherDetailViewModelProtocol {
     
     func getDetailWeather(cityId: Int) {
         changeLoading()
-        service.fetchWeathersDetail(with: cityId) { [weak self] (result) in
+        detailService.fetchWeathersDetail(with: cityId) { [weak self] (result) in
             guard let self = self else { return }
             switch result {
             case .success(let detail):

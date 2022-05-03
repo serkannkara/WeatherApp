@@ -1,5 +1,5 @@
 //
-//  NetworkDetailService.swift
+//  NetworkConsoleService.swift
 //  WeatherApp
 //
 //  Created by Serkan on 3.05.2022.
@@ -9,12 +9,12 @@ import Foundation
 import Alamofire
 
 
-protocol WeatherDetailServiceProtocol {
-    func fetchWeathersDetail(with cityId: Int, completion: @escaping (Result<Detail, NetworkError>) -> Void)
+protocol ConsoleWeatherServiceProtocol {
+    func fetchConsoleWeather(with cityId: Int, completion: @escaping (Result<[ConsoleWeather], NetworkError>) -> Void)
 }
 
-public class WeatherDetailService: WeatherDetailServiceProtocol {
-    func fetchWeathersDetail(with locationId: Int, completion: @escaping (Result<Detail, NetworkError>) -> Void) {
+public class ConsoleWeatherService: ConsoleWeatherServiceProtocol {
+    func fetchConsoleWeather(with locationId: Int, completion: @escaping (Result<[ConsoleWeather], NetworkError>) -> Void) {
         
         let baseUrl = WeatherAPI.fetchDetailAndConsole.baseUrlDetailAndConsole(locationId: locationId)
         
@@ -26,7 +26,7 @@ public class WeatherDetailService: WeatherDetailServiceProtocol {
                 do {
                     let decoder = JSONDecoder()
                     let response = try decoder.decode(Detail.self, from: data)
-                    completion(.success(response))
+                    completion(.success(response.consoleWeather))
                 } catch {
                     completion(.failure(.invalidResponse))
                 }

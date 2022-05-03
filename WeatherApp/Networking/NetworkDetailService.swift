@@ -14,7 +14,6 @@ protocol WeatherDetailServiceProtocol {
     func fetchWeathersDetail(with cityId: Int, completion: @escaping (Result<Detail, NetworkError>) -> Void)
 }
 
-
 public class WeatherDetailService: WeatherDetailServiceProtocol {
     
     func fetchConsoleWeather(with locationId: Int, completion: @escaping (Result<[ConsoleWeather], NetworkError>) -> Void) {

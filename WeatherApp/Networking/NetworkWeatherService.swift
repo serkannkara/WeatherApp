@@ -10,12 +10,9 @@ import UIKit
 import Alamofire
 
 
-
-
 protocol WeatherServiceProtocol {
     func fetchWeathers(userLocation: String, completion: @escaping (Result<[Weathers], NetworkError>) -> Void)
 }
-
 
 public class WeatherService: WeatherServiceProtocol {
     func fetchWeathers(userLocation: String, completion: @escaping (Result<[Weathers], NetworkError>) -> Void) {

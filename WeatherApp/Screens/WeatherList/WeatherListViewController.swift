@@ -10,8 +10,6 @@ import CoreLocation
 
 class WeatherListViewController: UIViewController {
     
-    
-    
     var currentLocation: CLLocationManager = {
         let crtLocation = CLLocationManager()
         crtLocation.desiredAccuracy = kCLLocationAccuracyBest

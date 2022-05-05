@@ -1,12 +1,9 @@
 # WeatherApp
 
 ````
-pod init
-
 pod 'Alamofire'
 pod 'Kingfisher'
 
-pod install
 ````
 
 
